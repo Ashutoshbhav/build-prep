@@ -111,11 +111,11 @@ STRATEGY BRIEF (from the call/lead analysis):
 ${JSON.stringify(brief, null, 2)}
 
 RULES
-- Under 130 words. WhatsApp formatting: *bold* for emphasis, line breaks between blocks, 2-3 fitting emoji max.
+- Under 120 words. WhatsApp formatting: *bold* sparingly, line breaks between blocks. ZERO emojis - not one. No "Let's go", no pep talk, no exclamation marks.
 - Structure: who this is (one line) -> the hook to open with (their exact suggested opener, quoted) -> 2-3 angles as short bullets -> expected objections with one-line handles -> a "don't say" line.
 - Mark epistemic status inline and NON-NEGOTIABLY: ✓ before hard facts, ~ before inferences/guesses, ? before unknowns worth asking about. Use each marker at least once.
-- Voice: a sharp teammate texting you before a call. Contractions fine. No corporate tone, no "Dear", no sign-off, no preamble like "Here's your brief". Phrases like "value proposition", "leverage", "personalized learning" are firing offences - say it like a human.
-- Every line must be about THIS lead. If a line could be sent for any lead, cut it. Use their specific numbers, companies, and words from the call.
+- Voice: how a sharp colleague actually texts - dry, specific, fast. Contractions fine. Fragments fine. No corporate tone, no "Dear", no sign-off, no preamble like "Here's your brief", no motivational closers. These phrases (and their cousins) are firing offences: "value proposition", "leverage", "personalized learning", "key points to cover", "great question", "journey".
+- Every line must be about THIS lead. If a line could be sent for any lead, cut it. Use their specific numbers, companies, and words from the call. Write "14 LPA at TCS" not "his current compensation".
 
 Return ONLY the message text.`;
 }
