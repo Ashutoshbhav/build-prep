@@ -19,9 +19,14 @@ const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash";
 const CLAUDE_MODEL = process.env.CLAUDE_MODEL || "claude-sonnet-5";
 // Per-model TPM limits on Groq free tier -> spread stages across model buckets:
 // fast model handles strategist + nudge, the stronger writer model only writes the PDF.
+// Four separate models = four separate TPM/TPD buckets on Groq's free tier.
+// A stampede (or an evaluator hammering the live app) degrades gracefully
+// instead of one shared limit taking the whole pipeline down.
 const GROQ_WRITER_MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
-const GROQ_FAST_MODEL = process.env.GROQ_FAST_MODEL || "llama-3.3-70b-versatile";
+const GROQ_STRATEGIST_MODEL =
+  process.env.GROQ_STRATEGIST_MODEL || "openai/gpt-oss-20b";
 const GROQ_NUDGE_MODEL = process.env.GROQ_NUDGE_MODEL || "qwen/qwen3.6-27b";
+const GROQ_FAST_MODEL = process.env.GROQ_FAST_MODEL || "llama-3.3-70b-versatile";
 
 function gemini() {
   const key = process.env.GEMINI_API_KEY;
@@ -183,7 +188,12 @@ export async function runStrategist(
 ): Promise<StrategistBrief> {
   const prompt = strategistPrompt(profile, transcript);
   if (!geminiAvailable()) {
-    return groqJson<StrategistBrief>(prompt, STRATEGIST_SCHEMA, GROQ_FAST_MODEL, 2500);
+    try {
+      return await groqJson<StrategistBrief>(prompt, STRATEGIST_SCHEMA, GROQ_STRATEGIST_MODEL, 2500);
+    } catch (err) {
+      console.error("strategist: gpt-oss-20b failed, using fast model:", err);
+      return groqJson<StrategistBrief>(prompt, STRATEGIST_SCHEMA, GROQ_FAST_MODEL, 2500);
+    }
   }
   try {
     return await withRetry(
