@@ -35,6 +35,10 @@ export async function htmlToPdf(html: string): Promise<Buffer> {
   try {
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "load" });
+    // Web fonts arrive after "load" - wait for them or the PDF ships in Arial.
+    await page
+      .evaluate(() => (document as unknown as { fonts: { ready: Promise<void> } }).fonts.ready)
+      .catch(() => {});
     const pdf = await page.pdf({
       format: "A4",
       printBackground: true,
