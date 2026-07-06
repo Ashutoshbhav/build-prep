@@ -95,10 +95,11 @@ async function groqChat(
       model,
       messages: [{ role: "user", content: prompt }],
       ...(jsonMode ? { response_format: { type: "json_object" } } : {}),
-      // Reasoning models (qwen3): a WhatsApp nudge needs no chain of thought.
+      // Reasoning models: keep hidden chain-of-thought from eating the output budget.
       ...(model.includes("qwen")
         ? { reasoning_effort: "none", reasoning_format: "hidden" }
         : {}),
+      ...(model.includes("gpt-oss") ? { reasoning_effort: "low" } : {}),
       temperature: 0.6,
       // Explicit cap matters: Groq's TPM accounting charges prompt + assumed
       // completion, so an unset max_tokens inflates the "requested" size.
@@ -209,7 +210,7 @@ export async function runStrategist(
   profile: LeadProfile,
   transcript: string
 ): Promise<StrategistBrief> {
-  const prompt = strategistPrompt(profile, transcript);
+  const prompt = strategistPrompt(profile, capTranscript(transcript, 14000));
   if (!geminiAvailable()) {
     try {
       return normalizeBrief(
@@ -259,13 +260,24 @@ export async function runNudge(
   }
 }
 
+// ~4 chars per token; used to pick a model BEFORE Groq rejects the request.
+const estTokens = (s: string) => Math.ceil(s.length / 4);
+
+// Long calls (especially diarized audio) blow past per-request caps.
+// Cap what each prompt consumer sees; keep the tail, which carries the
+// lead's questions more often than the greeting does.
+function capTranscript(t: string, maxChars: number): string {
+  if (t.length <= maxChars) return t;
+  return `[earlier part of call truncated]\n...${t.slice(-maxChars)}`;
+}
+
 export async function runWriter(
   profile: LeadProfile,
   brief: StrategistBrief,
   factSheet: string,
   transcript: string
 ): Promise<PdfContent> {
-  const prompt = writerPrompt(profile, brief, factSheet, transcript);
+  const prompt = writerPrompt(profile, brief, factSheet, capTranscript(transcript, 6000));
 
   // Preferred writer: Claude Sonnet 5 (only if key configured)
   if (process.env.ANTHROPIC_API_KEY) {
@@ -287,13 +299,22 @@ export async function runWriter(
   }
 
   if (!geminiAvailable()) {
-    try {
-      // 2600 keeps prompt + completion inside gpt-oss-120b's 8k TPM window.
-      return await groqJson<PdfContent>(prompt, WRITER_SCHEMA, GROQ_WRITER_MODEL, 2600);
-    } catch (err) {
-      console.error("writer: groq writer model failed, using fast model:", err);
-      return groqJson<PdfContent>(prompt, WRITER_SCHEMA, GROQ_FAST_MODEL, 3800);
+    // gpt-oss-120b caps each request at 8k tokens (prompt + max_tokens).
+    // Pre-flight the budget: fit inside it when possible, otherwise go
+    // straight to the fast model instead of burning a guaranteed 413.
+    const budget = 7600 - estTokens(prompt) - 200; // schema suffix headroom
+    if (budget >= 1800) {
+      try {
+        return await groqJson<PdfContent>(
+          prompt, WRITER_SCHEMA, GROQ_WRITER_MODEL, Math.min(budget, 2600)
+        );
+      } catch (err) {
+        console.error("writer: groq writer model failed, using fast model:", err);
+      }
+    } else {
+      console.warn(`writer: prompt too large for gpt-oss window (est ${estTokens(prompt)}t), using fast model`);
     }
+    return groqJson<PdfContent>(prompt, WRITER_SCHEMA, GROQ_FAST_MODEL, 3800);
   }
   try {
     return await withRetry(
