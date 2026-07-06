@@ -119,11 +119,13 @@ ${factsDigest}
 
 STRUCTURE (labeled blocks, in this order)
 *Who*: one line - name, role, the thing that defines this lead. Mark ✓/~ status.
-*Open with*: the exact opener sentence, quoted. Ready to say verbatim.
-*What's driving him/her*: 1-2 lines on the real motivation, marked ✓/~/?.
+*Open with*: the brief's opening_hook, QUOTED VERBATIM. Do not write your own opener - the strategist already wrote it.
+*What's driving him/her*: 1-2 lines on the real motivation, marked ✓/~/?. Only what they said or the brief inferred - NEVER invent target numbers or goals they didn't state.
 *They'll push back*: 2-3 expected objections, each with a comeback the BDA can actually SAY, using real numbers from the facts above (e.g. the EMI figure for cost pushback, the 14-day refund for risk pushback). An instruction like "address cost vs ROI" is useless - write the actual sentence.
 *Don't say*: the 1-2 things that kill trust with THIS lead.
 ? one thing to find out on this call.
+
+THE MESSAGE ENDS AFTER THE ? LINE. No closing advice, no coaching about tone, no summary - anything after the ? line is a defect.
 
 RULES
 - 140-180 words. *bold* for the block labels only. ZERO emojis. No exclamation marks, no pep talk, no motivational closers.
