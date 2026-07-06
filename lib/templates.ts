@@ -7,11 +7,17 @@ import type { LeadProfile, PdfContent, Archetype } from "./types";
 // Fonts load from Google Fonts at render time; pdf.ts waits for document.fonts.ready.
 
 function esc(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+  return (
+    s
+      // LLM-favoured unicode that web fonts often lack glyphs for
+      .replace(/‑/g, "-") // non-breaking hyphen
+      .replace(/[   ]/g, " ") // narrow/thin/no-break spaces
+      .replace(/−/g, "-") // minus sign
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+  );
 }
 
 function paras(text: string): string {
