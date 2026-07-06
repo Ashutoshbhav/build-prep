@@ -1,0 +1,232 @@
+{
+  "scraped_at": "2026-07-06",
+  "programs": [
+    {
+      "name": "Modern Software and AI Engineering (Scaler Academy)",
+      "duration": "12 months (Beginner/Intermediate track); 10 months (Advanced track)",
+      "audience": "Working professionals; segmented 1-4 yrs (SDEs, QA, frontend devs), 2-6 yrs (fullstack/backend), 3-8 yrs (senior engineers, tech leads), 5-10+ yrs (solution engineers, AI-first builders)",
+      "fee": "Rs 3,99,000 total; starting at Rs 9,791/month with Rs 20,000 upfront",
+      "format": "Online live sessions plus recorded content; lifetime access to curriculum, recordings and future updates; next cohort July 2026",
+      "source": "https://www.scaler.com/academy/"
+    },
+    {
+      "name": "Modern Data Science and ML with Specialisation in AI (Scaler DSML)",
+      "duration": "12 months",
+      "audience": "0-4 yrs (SDEs, QA, analysts, non-tech graduates) through 4-10+ yrs (mid-level professionals)",
+      "fee": "Rs 3,99,000 total; EMI from Rs 9,791/month; Rs 20,000 upfront commitment",
+      "format": "Live online classes roughly 3x per week with recorded access; next cohort July 2026",
+      "source": "https://www.scaler.com/data-science-course/"
+    },
+    {
+      "name": "Advanced AI & Machine Learning With Agentic AI",
+      "duration": "15 months (Beginner track, new to ML/Python); 12 months (Advanced track, coding experience)",
+      "audience": "1-2 yrs (freshers, switchers), 2-4 yrs (SDEs, backend, QA), 3-6 yrs (ML/data engineers), 4-8 yrs (senior engineers, architects), 3-10+ yrs (PMs, consultants)",
+      "fee": "Rs 3,99,000 total; Rs 9,791/month; no-cost EMI with Rs 20,000 upfront commitment",
+      "format": "Online live classes with lifetime access to curriculum, recordings and future updates; next cohort July 2026",
+      "source": "https://www.scaler.com/ai-machine-learning-course/"
+    },
+    {
+      "name": "DevOps, Cloud & AI Platform Engineering",
+      "duration": "12 months",
+      "audience": "0-3 yrs through 12+ yrs; specializations in MLOps and Cybersecurity",
+      "fee": "Rs 3,99,000 total; starting Rs 9,791/month; no-cost EMI with Rs 20,000 upfront",
+      "format": "Online with live sessions, recorded content, lifetime access; next cohort July 2026",
+      "source": "https://www.scaler.com/devops-course/"
+    },
+    {
+      "name": "AI Engineering Course with Gen AI & LLMs, Certification by IIT Roorkee CEC",
+      "duration": "3 months (25 classes)",
+      "audience": "Software developers (1-4 yrs), data scientists (2-6 yrs), DevOps engineers (3-8 yrs), other tech professionals (3-10+ yrs)",
+      "fee": "Rs 76,699 total (incl. taxes); starting at Rs 8,303/month with flexible EMI",
+      "format": "Online with optional 2-day campus immersion at IIT Roorkee; certificate by IIT Roorkee Continuing Education Centre",
+      "source": "https://www.scaler.com/iit-roorkee-advanced-ai-engineering-course/"
+    }
+  ],
+  "ai_curriculum": [
+    {
+      "module": "Generative AI (2 months, 22 topics)",
+      "detail": "Four blocks: LLMs & prompt engineering (how models work, reliable prompting, evaluation & safety); RAG, research & no-code apps (grounded Q&A, chatbots, multimodal generation); Automation & agents (n8n, Zapier, MCP, agent building, multi-agent systems); Ship it (system design, observability, deploying live AI apps incl. AWS)",
+      "source": "https://www.scaler.com/ai-machine-learning-course/"
+    },
+    {
+      "module": "ML & Gen AI Engineering (7 months total)",
+      "detail": "MLOps, System Design, Foundations of AI Engineering & RAG Systems (vector databases, embeddings), Agentic Design Patterns & Multi-Agent Orchestration (LangChain, LangGraph, memory systems), Advanced Cognitive Architectures & Multimodal Intelligence (Agentic RAG, GraphRAG), Fine tuning, LLMOps and Security (PEFT, LoRA, vLLM, quantization, token economics)",
+      "source": "https://www.scaler.com/ai-ml-detailed-curriculum"
+    },
+    {
+      "module": "ML Coding / Applied AI-ML (5 months, 22 topics)",
+      "detail": "Regression, classification, unsupervised learning, time series, recommenders, deep learning, computer vision, NLP incl. Transformers/GPT, LSTM, RNN, Attention, Transfer Learning",
+      "source": "https://www.scaler.com/ai-ml-detailed-curriculum"
+    },
+    {
+      "module": "Data Foundations (1 month) + Maths for ML (1 month)",
+      "detail": "NumPy, Pandas, EDA, visualization, probability; vectors, hyperplanes, loss minimization, gradient descent",
+      "source": "https://www.scaler.com/ai-machine-learning-course/"
+    },
+    {
+      "module": "Named projects (AI/ML program)",
+      "detail": "8 listed projects incl.: RAG-Powered Knowledge Assistant (NotebookLM, Dify, Render, Railway); Domain-Specific RAG System (Milvus, Hugging Face, Opik, semantic chunking, hallucination guardrails); LLM Fine-Tuning with LoRA (Hugging Face TRL, PEFT, PyTorch); No-Code AI Agent with Tool Use (n8n, Relevance AI); Real-Time Fraud Detection (Kafka, AutoEncoders); LinkedIn Newsfeed Personalization (TensorFlow Ranking, BERT)",
+      "source": "https://www.scaler.com/ai-machine-learning-course/"
+    },
+    {
+      "module": "Generative AI module - named sessions",
+      "detail": "Prompt Engineering - Anatomy to Advanced Patterns; Knowledge Management & RAG in Practice; What Is an AI Agent? Concepts & Live Demos; Claude Ecosystem Deep-Dive - Skills, Artifacts, claude.md; Deploying AI Apps - Hosting & Going Live",
+      "source": "https://www.scaler.com/ai-ml-detailed-curriculum"
+    },
+    {
+      "module": "Scaler Academy AI content (software engineering program)",
+      "detail": "AI & Agents: Building Autonomous Systems (1 month); Intermediate DSA: AI-Assisted Problem Solving (1 month); FDE track with RAG + Consulting (1 month, 12 sessions); CRM-to-AI Support Copilot project using agents, MCP, human-in-the-loop approval",
+      "source": "https://www.scaler.com/academy/"
+    },
+    {
+      "module": "Electives (optional)",
+      "detail": "DSA for Professionals (4-6 months), Advanced ML & Deep Learning 1-2 (2 months), Big Data (recorded, 1 month), Reinforcement Learning (recorded, 1 month)",
+      "source": "https://www.scaler.com/ai-ml-detailed-curriculum"
+    }
+  ],
+  "outcomes": [
+    {
+      "claim": "Scaler FAQ page: 93.5% success rate amongst students who successfully completed the program; highest package INR 1.7 crore per annum; average salary Rs 21.6 LPA; median salary hike 150%; and explicitly: 'Job placements are not guaranteed'",
+      "source": "https://www.scaler.com/faq/"
+    },
+    {
+      "claim": "Scaler placement review page: 89% placement rate, average post-Scaler salary Rs 23 LPA, 147% avg salary increment, 1200+ hiring partners, 11,000+ placements. NOTE: these figures differ from the FAQ page's figures - quote with attribution to the specific page, never as one definitive number",
+      "source": "https://www.scaler.com/topics/scaler-academy-reviews-salaries-and-real-placement-stories/"
+    },
+    {
+      "claim": "Named hiring companies on placement review page: Google, Amazon, Microsoft, Flipkart, Adobe, Fractal, Paytm plus 1200+ more",
+      "source": "https://www.scaler.com/topics/scaler-academy-reviews-salaries-and-real-placement-stories/"
+    },
+    {
+      "claim": "DSML course page: 900+ hiring partners, median salary hike ~110% for data science, 40,000+ peers alumni network",
+      "source": "https://www.scaler.com/data-science-course/"
+    },
+    {
+      "claim": "Placement support eligibility is conditional: finish all modules, meet attendance minimums, submit capstone projects; support continues 6-12 months after the course; no minimum salary guaranteed",
+      "source": "https://www.scaler.com/topics/scaler-academy-reviews-salaries-and-real-placement-stories/"
+    },
+    {
+      "claim": "Named alumni examples (AI/ML page): Shivam Prakash (Ericsson Backend Engineer to Adobe Computer Scientist, 3 offers), Rajesh Somasundaram (HERE Technologies SWE-II to NinjaCart MLOps Engineer-2), Divyanshu Tanter (Wipro Data Scientist to Dassault Systemes AI Researcher, 4 offers), Sayyam Bhandari (Sr BI Analyst to Amazon Data Engineer, 2 offers)",
+      "source": "https://www.scaler.com/ai-machine-learning-course/"
+    }
+  ],
+  "instructors": [
+    {
+      "name": "Anshuman Singh",
+      "credential": "Co-Founder Scaler; two-time ACM ICPC World Finalist; built Facebook Messenger; 15+ YOE; teaches Problem Solving & System Design",
+      "source": "https://www.scaler.com/ai-machine-learning-course/"
+    },
+    {
+      "name": "Shivank Agarwal",
+      "credential": "SVP Engineering Scaler; ex SDE Manager at Microsoft; 14+ YOE; System Design & Backend",
+      "source": "https://www.scaler.com/ai-machine-learning-course/"
+    },
+    {
+      "name": "Shivam Prasad",
+      "credential": "Principal Data Scientist, Omsha; production deep learning across CV/NLP/speech, research at IISc; 10+ YOE; MLOps & Computer Vision",
+      "source": "https://www.scaler.com/ai-machine-learning-course/"
+    },
+    {
+      "name": "Akash Rajpuria",
+      "credential": "Senior Data Scientist (NLP), EPAM; Interspeech 2021 published researcher; built BERT-powered search at Pfizer; 8+ YOE",
+      "source": "https://www.scaler.com/ai-machine-learning-course/"
+    },
+    {
+      "name": "Saurabh Kango",
+      "credential": "Senior Manager DS&A, Meesho; ex-LinkedIn Analytics Lead and Airbnb Data Scientist; 10+ YOE",
+      "source": "https://www.scaler.com/data-science-course/"
+    },
+    {
+      "name": "Umang Agarwal (SDE-II Amazon), Subham Soni (SWE Microsoft), Kunal Jindal (SDE-II Atlassian), Alok Singh (SDE-2 Booking.com)",
+      "credential": "Current working engineers teaching DSA/Backend/System Design on Scaler Academy",
+      "source": "https://www.scaler.com/academy/"
+    },
+    {
+      "name": "Pravendra Singh",
+      "credential": "Professor, IIT Roorkee; 15+ YOE in deep learning/LLMs; instructor on the IIT Roorkee AI Engineering course",
+      "source": "https://www.scaler.com/iit-roorkee-advanced-ai-engineering-course/"
+    }
+  ],
+  "financing": [
+    {
+      "option": "No-cost EMI",
+      "detail": "Zero-interest EMI up to 24 months; Rs 3,99,000 programs start at Rs 9,791/month with Rs 20,000 upfront commitment",
+      "source": "https://www.scaler.com/faq/"
+    },
+    {
+      "option": "Longer-tenure loans",
+      "detail": "36-month loan tenure available with interest included (not zero-cost)",
+      "source": "https://www.scaler.com/faq/"
+    },
+    {
+      "option": "Entrance-test scholarship",
+      "detail": "Scholarships based on entrance test scores; merit scholarships up to Rs 25,000 mentioned",
+      "source": "https://www.scaler.com/topics/scaler-academy-real-reviews-scaler-fees-what-you-are-really-paying-for/"
+    },
+    {
+      "option": "Refund policy (14 days)",
+      "detail": "Full opt-out with refund by emailing refund@scaler.com within 14 days from first class; processed within 30 days; no refunds after the window",
+      "source": "https://www.scaler.com/terms/"
+    },
+    {
+      "option": "Pause/deferral",
+      "detail": "Program can be paused up to 3 times before completing core modules; paused learners keep recordings and doubt resolution access",
+      "source": "https://www.scaler.com/terms/"
+    }
+  ],
+  "entrance_test": [
+    {
+      "fact": "Free 30-minute entrance test of MCQs: logical reasoning and aptitude, basic mathematics, basic time complexity, predicting outputs of small code snippets. FAQ: 'you do not need any special preparation for this test'. Scholarships available based on test scores",
+      "source": "https://www.scaler.com/faq/"
+    },
+    {
+      "fact": "Eligibility per FAQ: only working professionals with a minimum of 1 year of experience are eligible for the upskilling programs (final-year students should confirm eligibility with an advisor)",
+      "source": "https://www.scaler.com/faq/"
+    },
+    {
+      "fact": "Scaler NSET is a SEPARATE test for the 4-year undergraduate School of Technology program only - retake rules published for NSET (thrice per academic year) do not apply to the upskilling entrance test",
+      "source": "https://www.scaler.com/school-of-technology/admission/"
+    }
+  ],
+  "vs_free_content": [
+    {
+      "argument": "Site's own framing vs free content: creating a path, right mentorship, opening opportunities vs unstructured YouTube; peer pods for accountability; multiple mock interview rounds, resume support, LinkedIn optimization; job portal with assessed openings; lifetime alumni community",
+      "source": "https://www.scaler.com/topics/scaler-academy-real-reviews-scaler-fees-what-you-are-really-paying-for/"
+    },
+    {
+      "argument": "1:1 mentorship from active industry professionals who are currently employed and currently hiring; ~2 mentor sessions per month, 30-60 min 1:1 video calls",
+      "source": "https://www.scaler.com/faq/"
+    },
+    {
+      "argument": "Lifetime access: 'AI built into every module, not bolted on after' and 'Curriculum updates forever - no extra cost'",
+      "source": "https://www.scaler.com/ai-machine-learning-course/"
+    },
+    {
+      "argument": "Proprietary practice environment: Scaler-built coding platform with terminal-based judges and AI mock interviews; 37,000+ member community",
+      "source": "https://www.scaler.com/academy/"
+    },
+    {
+      "argument": "Structured live format: live classes ~2x per week (late evening weekdays), all recorded, ~15 hour weekly commitment expected",
+      "source": "https://www.scaler.com/faq/"
+    }
+  ],
+  "gaps": [
+    "Placement statistics are inconsistent across Scaler's own pages (89% vs 93.5% rate; Rs 21.6 vs Rs 23 LPA average; 147% vs 150% vs 126% hike; 650+ vs 900+ vs 1200+ partners). Never quote one number as definitive; attribute each figure to its page",
+    "NO job or placement guarantee exists - FAQ explicitly says 'Job placements are not guaranteed'; no minimum salary guaranteed. Never imply otherwise",
+    "No publication date or audit methodology for placement stats; unclear which cohorts they cover",
+    "No ISA (income share agreement) exists on scaler.com - do not claim one",
+    "Whether the Rs 20,000 upfront commitment is refundable within the 14-day window is not explicitly stated",
+    "Retake policy for the 30-minute upskilling entrance test is not published",
+    "Exact interest rates, lending partners, eligibility criteria for 36-month loans not published",
+    "Cohort composition (batch size, peer experience mix, acceptance rate) is not published",
+    "Weekly schedule inconsistency: FAQ says ~2x/week, DSML page suggests ~3x/week",
+    "Whether final-year students (0 YoE) are eligible for upskilling programs is unclear - FAQ says minimum 1 year experience required; an advisor must confirm options for freshers",
+    "Scholarship amounts beyond 'up to Rs 25,000' not published",
+    "Scaler certificates are completion certificates, not degrees; only the IIT Roorkee course carries external CEC certification - never claim university accreditation for Academy/DSML/DevOps",
+    "Market statistics on program pages (163% growth in AI postings, ~70 LPA GenAI salaries, $206K US averages) are third-party market claims Scaler cites, NOT Scaler outcome data - never present them as Scaler results",
+    "Alumni network size quoted variously as 37,000+, 40,000+, 1,00,000+ on different pages",
+    "No published list of which companies are formal hiring partners vs where alumni happen to work",
+    "Time-to-placement not guaranteed; placement page mentions cases taking up to six months post-graduation",
+    "Named instructors are marketing examples; lineup per cohort is not guaranteed"
+  ]
+}
