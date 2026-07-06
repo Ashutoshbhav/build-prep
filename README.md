@@ -8,13 +8,11 @@ An agent that covers the two drop-off moments in Scaler's sales funnel. Before t
 
 ## One failure I found
 
-<!-- ASH: rewrite this in your own words, keep under 50 words. The raw incident: -->
-The writer confidently put "₹15 LPA" in Rohan's ROI table. He said 14 on the call. One invented digit in the most trust-sensitive number of the document. Fixed by passing the raw transcript to the writer and banning derived figures without shown arithmetic.
+My writer put ₹15 LPA in Rohan's ROI table. He said 14 on the call. One invented digit, in the exact number a skeptical lead checks first. Fix: the writer now reads the raw transcript, and derived figures must show their arithmetic or they don't ship.
 
 ## Scale plan (1/day → 100k/month)
 
-<!-- ASH: your voice, keep under 100 words. The two real constraints: -->
-Two things break first. (1) The human approval gate: at ~3,300 lead PDFs/day, "BDA reviews every send" becomes the bottleneck, so approval must become tiered — auto-send above a grounding-confidence threshold, human review only for flagged documents, with sampled audits. (2) Free-tier LLM rate limits, which I already hit during development; at this volume you buy dedicated throughput and queue generation jobs (the PDF doesn't need to be real-time, it needs to arrive within minutes of the call). WhatsApp moves from sandbox to approved business templates, which is paperwork, not engineering.
+The approval gate breaks first. At ~3,300 lead PDFs a day, "a BDA reviews every send" stops scaling. So approval goes tiered: auto-send documents that pass grounding checks (every claim traceable to the fact file), queue only flagged ones for human review, sample-audit the rest. Second constraint is LLM rate limits — I hit free-tier caps during a single day of development. At volume you buy dedicated throughput and queue generation; the PDF needs to arrive within minutes of the call, not seconds. WhatsApp sandbox becomes approved business templates — paperwork, not engineering.
 
 ---
 
