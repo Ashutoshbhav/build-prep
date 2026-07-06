@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { renderPdfHtml } from "@/lib/templates";
-import { htmlToPdf, uploadPdf } from "@/lib/pdf";
+import { renderAndUpload } from "@/lib/pdf";
 import type { LeadProfile, PdfContent, Archetype } from "@/lib/types";
 
 export const maxDuration = 60;
@@ -14,9 +14,8 @@ export async function POST(req: NextRequest) {
       content: PdfContent;
     };
     const html = renderPdfHtml(profile, archetype, content);
-    const pdfBuffer = await htmlToPdf(html);
-    const pdfUrl = await uploadPdf(profile.name, pdfBuffer);
-    return NextResponse.json({ pdfUrl });
+    const rendered = await renderAndUpload(profile.name, html);
+    return NextResponse.json({ pdfUrl: rendered.url, pdfFormat: rendered.format });
   } catch (err) {
     console.error("render-pdf failed:", err);
     return NextResponse.json(

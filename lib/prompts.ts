@@ -30,7 +30,7 @@ INSTRUCTIONS
    Classify by what is DRIVING the decision, not by seniority alone.
 3. angles: 2-3 talking angles that will genuinely resonate, each tied to something REAL from the profile or transcript (never generic).
 4. objections: 2-3 objections the BDA should expect next, each with a one-line handle.
-5. opening_hook: The exact first sentence the BDA should open the NEXT interaction with. Specific to this person. Never "Hi, this is X from Scaler."
+5. opening_hook: The exact first sentence the BDA should open the NEXT interaction with. Specific to this person, conversational, something only someone who listened to THEIR call could say. BANNED in the hook: "follow up", "value proposition", "wanted to", "touch base", any sentence a corporate email would contain. Good hooks reference their specific situation or question directly (e.g. "You asked me a question I didn't answer properly - the Coursera one. I've got the real answer now.").
 6. dont_say: 2-4 things that would kill trust with THIS lead (e.g. for a senior engineer: salary-jump pitches; for a fearful fresher: the word "guarantee").
 7. known / inferred / missing: separate hard facts from your inferences from what you simply don't know. Be honest - this is scored on honesty.
 8. tone_spec: One sentence describing how the lead-facing document should sound for this specific person.
@@ -113,9 +113,9 @@ ${JSON.stringify(brief, null, 2)}
 RULES
 - Under 130 words. WhatsApp formatting: *bold* for emphasis, line breaks between blocks, 2-3 fitting emoji max.
 - Structure: who this is (one line) -> the hook to open with (their exact suggested opener, quoted) -> 2-3 angles as short bullets -> expected objections with one-line handles -> a "don't say" line.
-- Mark epistemic status inline: ✓ = fact, ~ = our guess, ? = unknown/ask them.
-- Voice: a sharp teammate texting you before a call. Contractions fine. No corporate tone, no "Dear", no sign-off, no preamble like "Here's your brief".
-- Every line must be about THIS lead. If a line could be sent for any lead, cut it.
+- Mark epistemic status inline and NON-NEGOTIABLY: ✓ before hard facts, ~ before inferences/guesses, ? before unknowns worth asking about. Use each marker at least once.
+- Voice: a sharp teammate texting you before a call. Contractions fine. No corporate tone, no "Dear", no sign-off, no preamble like "Here's your brief". Phrases like "value proposition", "leverage", "personalized learning" are firing offences - say it like a human.
+- Every line must be about THIS lead. If a line could be sent for any lead, cut it. Use their specific numbers, companies, and words from the call.
 
 Return ONLY the message text.`;
 }
@@ -149,7 +149,8 @@ const ARCHETYPE_WRITER_SPECS: Record<string, string> = {
 export function writerPrompt(
   profile: LeadProfile,
   brief: StrategistBrief,
-  factSheet: string
+  factSheet: string,
+  transcript: string
 ): string {
   const spec = ARCHETYPE_WRITER_SPECS[brief.archetype] ?? ARCHETYPE_WRITER_SPECS.other;
   return `You are writing a short personalised follow-up document for ${profile.name}, a lead who just had a sales call with Scaler (scaler.com). It will be a 2-3 page branded PDF delivered on WhatsApp. Its only job: answer their open questions honestly enough that they trust Scaler with the next step (a free entrance test).
@@ -157,8 +158,25 @@ export function writerPrompt(
 LEAD PROFILE
 ${JSON.stringify(profile, null, 2)}
 
+THE ACTUAL CALL (their exact words - mine it for numbers, names, and phrasing)
+${transcript}
+
 STRATEGY BRIEF
-${JSON.stringify(brief, null, 2)}
+${JSON.stringify(
+    {
+      lead_summary: brief.lead_summary,
+      archetype: brief.archetype,
+      archetype_reason: brief.archetype_reason,
+      open_questions: brief.open_questions,
+      dont_say: brief.dont_say,
+      known: brief.known,
+      inferred: brief.inferred,
+      missing: brief.missing,
+      tone_spec: brief.tone_spec,
+    },
+    null,
+    1
+  )}
 
 ${spec}
 
@@ -170,6 +188,13 @@ GROUNDING RULES (these are hard rules, violating them fails the task)
 2. If the lead's question needs a fact that is NOT in the fact sheet (check the gaps list), do not improvise. Put what's missing into "unconfirmed" phrased as: what their advisor will confirm, by when it can be confirmed, honestly framed. "We'll confirm this" beats a confident wrong answer, always.
 3. Answer THEIR verbatim questions. Each answer opens by engaging their actual words, not a rephrased corporate version.
 4. General knowledge (e.g. what RAG is, what product companies interview on) is allowed WITHOUT proofs - only Scaler-specific claims need sources.
+
+SPECIFICITY RULES (this document fails review if it reads generic)
+- Curriculum answers must cite NAMED modules, projects, and tools from the fact sheet (e.g. specific RAG/agent modules, named projects, named instructors with credentials) - never categories like "hands-on projects" or "industry experts".
+- Money answers must compute with the LEAD'S OWN numbers stated on the call, EXACTLY as stated (if they said 14 LPA, write 14 LPA - never round, drift, or substitute). If they never stated a number, say so and leave that cell honest rather than inventing one. Show the arithmetic, don't gesture at it. Never invent derived figures (break-even months, ROI percentages) unless you show the calculation from stated + published numbers.
+- Where Scaler's pages publish conflicting figures (the fact sheet flags these), present the range honestly with per-page attribution. That honesty is deliberate strategy, not a bug.
+- Each proofs[] entry must be a specific claim, not "our website says we're good".
+- Pick the SINGLE most relevant Scaler program for this lead from the fact sheet and keep every fee, duration, and curriculum claim consistent with that one program. Never mix figures from different programs (e.g. the 3-month IIT Roorkee course vs the 12-month tracks). Mention an alternative program only as an explicit, clearly-separated option.
 
 WRITING RULES
 - Address ${profile.name} directly as "you". Reference the actual call naturally in the intro.

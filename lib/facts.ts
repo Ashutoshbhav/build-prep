@@ -35,19 +35,30 @@ function renderSection(title: string, entries: FactEntry[]): string {
   return `## ${title}\n${lines.join("\n")}`;
 }
 
-// Renders the full fact sheet for the writer prompt. Kept as one string:
-// at curated size it fits comfortably in context, and the writer needs
-// cross-section facts (e.g. fee + financing + outcomes) for ROI tables.
-export function factSheet(): string {
+// Renders the fact sheet for the writer prompt, slimmed by relevance so the
+// prompt fits the writer model's per-request token cap. Core sections always
+// ship; heavier sections ship only when this lead's call makes them relevant.
+export function factSheet(archetype?: string, transcript?: string): string {
+  const t = (transcript || "").toLowerCase();
+  const mentionsFree =
+    /coursera|youtube|free|udemy|self.?learn|papers|internal training/.test(t);
+  const includeInstructors =
+    archetype === "peer_evaluator" || /instructor|teacher|faculty|who teaches|academic/.test(t);
+  const includeVsFree = archetype !== "peer_evaluator" ? mentionsFree || archetype === "roi_skeptic" : mentionsFree;
+  const includeCurriculum =
+    !archetype || /ai|ml|llm|rag|agent|curriculum|program|course|data|tech/.test(t);
+
   return [
     `SCALER FACT SHEET (curated from scaler.com on ${facts.scraped_at})`,
     renderSection("Programs", facts.programs),
-    renderSection("AI/ML curriculum", facts.ai_curriculum),
+    includeCurriculum ? renderSection("AI/ML curriculum", facts.ai_curriculum) : "",
     renderSection("Published outcomes & placements", facts.outcomes),
-    renderSection("Instructors & mentors", facts.instructors),
+    includeInstructors ? renderSection("Instructors & mentors", facts.instructors) : "",
     renderSection("Financing", facts.financing),
     renderSection("Entrance test", facts.entrance_test),
-    renderSection("Structured program vs free content (site's own arguments)", facts.vs_free_content),
+    includeVsFree
+      ? renderSection("Structured program vs free content (site's own arguments)", facts.vs_free_content)
+      : "",
     `## KNOWN GAPS - facts that do NOT exist in this sheet. If a question needs one of these, it goes in "unconfirmed", never invented:\n${facts.gaps
       .map((g) => `- ${g}`)
       .join("\n")}`,

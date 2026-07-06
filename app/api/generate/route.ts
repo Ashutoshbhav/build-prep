@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { runStrategist, runNudge, runWriter } from "@/lib/llm";
 import { factSheet } from "@/lib/facts";
 import { renderPdfHtml } from "@/lib/templates";
-import { htmlToPdf, uploadPdf } from "@/lib/pdf";
+import { renderAndUpload } from "@/lib/pdf";
 import type { LeadProfile } from "@/lib/types";
 
 export const maxDuration = 120;
@@ -27,14 +27,19 @@ export async function POST(req: NextRequest) {
     // Nudge and writer are independent - run them in parallel.
     const [nudge, pdf] = await Promise.all([
       runNudge(profile, brief),
-      runWriter(profile, brief, factSheet()),
+      runWriter(profile, brief, factSheet(brief.archetype, transcript), transcript),
     ]);
 
     const html = renderPdfHtml(profile, brief.archetype, pdf);
-    const pdfBuffer = await htmlToPdf(html);
-    const pdfUrl = await uploadPdf(profile.name, pdfBuffer);
+    const rendered = await renderAndUpload(profile.name, html);
 
-    return NextResponse.json({ brief, nudge, pdf, pdfUrl });
+    return NextResponse.json({
+      brief,
+      nudge,
+      pdf,
+      pdfUrl: rendered.url,
+      pdfFormat: rendered.format,
+    });
   } catch (err) {
     console.error("generate failed:", err);
     return NextResponse.json(

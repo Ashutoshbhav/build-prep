@@ -164,6 +164,15 @@ export default function Home() {
 
   const busy = stage === "transcribing" || stage === "generating";
 
+  // Sanctioned fallback path from the brief: a wa.me link carrying the hosted
+  // PDF URL, in case the Twilio sandbox misbehaves on demo day.
+  const waMeHref =
+    result?.pdfUrl && phone
+      ? `https://wa.me/${phone.replace(/[^\d]/g, "").replace(/^0+/, "").length === 10 ? "91" + phone.replace(/[^\d]/g, "") : phone.replace(/[^\d]/g, "")}?text=${encodeURIComponent(
+          `${coverDraft}\n\nYour document: ${result.pdfUrl}`
+        )}`
+      : null;
+
   return (
     <main className="min-h-screen bg-neutral-50 text-neutral-900">
       <div className="mx-auto max-w-6xl px-6 py-10">
@@ -422,6 +431,22 @@ export default function Home() {
                         Skip
                       </button>
                     </div>
+                  )}
+                  {!skipped && pdfSend !== "sent" && waMeHref && (
+                    <a
+                      href={waMeHref}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`mt-2 block text-xs underline ${
+                        pdfSend === "failed"
+                          ? "font-semibold text-red-600"
+                          : "text-neutral-400"
+                      }`}
+                    >
+                      {pdfSend === "failed"
+                        ? "Sandbox failed → send via wa.me instead (opens WhatsApp with the PDF link)"
+                        : "Backup: send manually via wa.me"}
+                    </a>
                   )}
                   {editing && (
                     <p className="mt-2 text-xs text-neutral-400">

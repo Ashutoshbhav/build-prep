@@ -55,3 +55,28 @@ export async function uploadPdf(name: string, pdf: Buffer): Promise<string> {
   });
   return blob.url;
 }
+
+// Never-fail fallback: if Chromium dies, the same document ships as a hosted
+// web page. The lead gets a link that opens in any browser; demo survives.
+export async function uploadHtml(name: string, html: string): Promise<string> {
+  const safe = name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  const blob = await put(`docs/${safe}-${Date.now()}.html`, html, {
+    access: "public",
+    contentType: "text/html; charset=utf-8",
+  });
+  return blob.url;
+}
+
+// One call that always returns a usable public URL.
+export async function renderAndUpload(
+  name: string,
+  html: string
+): Promise<{ url: string; format: "pdf" | "html" }> {
+  try {
+    const pdf = await htmlToPdf(html);
+    return { url: await uploadPdf(name, pdf), format: "pdf" };
+  } catch (err) {
+    console.error("pdf render failed, shipping html fallback:", err);
+    return { url: await uploadHtml(name, html), format: "html" };
+  }
+}
