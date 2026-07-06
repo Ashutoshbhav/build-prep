@@ -195,21 +195,26 @@ export default function Home() {
       : null;
 
   return (
-    <main className="min-h-screen bg-neutral-50 text-neutral-900">
+    <main className="min-h-screen bg-white text-[#011845]">
       <div className="mx-auto max-w-6xl px-6 py-10">
         <header className="mb-8">
-          <h1 className="text-2xl font-bold tracking-tight">
-            Build &amp; Prep <span className="text-blue-600">·</span> BDA copilot
+          <h1 className="font-display flex items-baseline gap-2 text-2xl font-semibold tracking-tight">
+            <span className="flex items-center">
+              scaler<span className="ml-0.5 inline-block h-5 w-2.5 bg-[#004CE5]" />
+            </span>
+            <span className="font-normal text-neutral-300">/</span>
+            Build &amp; Prep
+            <span className="text-sm font-medium text-[#6478a0]">BDA copilot</span>
           </h1>
-          <p className="mt-1 text-sm text-neutral-500">
+          <p className="mt-1 text-sm text-[#4a5b7d]">
             Pre-call WhatsApp nudge for the BDA + post-call personalised PDF for the
             lead. Lead-facing sends always pass through Approve / Edit / Skip.
           </p>
         </header>
 
         {/* Onboarding */}
-        <section className="mb-8 rounded-xl border border-neutral-200 bg-white p-5">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-400">
+        <section className="mb-8 border border-[#dfe5f1] bg-white p-5">
+          <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-[#6478a0]">
             Step 1 · WhatsApp setup
           </h2>
           <div className="mt-3 flex flex-wrap items-end gap-3">
@@ -224,17 +229,17 @@ export default function Home() {
                   setPhoneSaved(false);
                 }}
                 placeholder="+91 98765 43210"
-                className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+                className="mt-1 w-full rounded-none border border-neutral-300 px-3 py-2 text-sm focus:border-[#004CE5] focus:outline-none"
               />
             </label>
             <button
               onClick={savePhone}
-              className="rounded-lg bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700"
+              className="rounded-none bg-[#011845] px-4 py-2 text-sm font-medium text-white hover:bg-[#0a2a6b]"
             >
               {phoneSaved ? "Saved ✓" : "Save"}
             </button>
           </div>
-          <p className="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-800">
+          <p className="mt-3 rounded-none bg-amber-50 px-3 py-2 text-xs text-amber-800">
             One-time: send{" "}
             <b>join {process.env.NEXT_PUBLIC_TWILIO_SANDBOX_CODE || "<sandbox-code>"}</b>{" "}
             on WhatsApp to <b>+1 415 523 8886</b> (Twilio sandbox) so messages can reach
@@ -244,8 +249,8 @@ export default function Home() {
 
         <div className="grid gap-6 lg:grid-cols-2">
           {/* Input column */}
-          <section className="self-start rounded-xl border border-neutral-200 bg-white p-5">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-400">
+          <section className="self-start border border-[#dfe5f1] bg-white p-5">
+            <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-[#6478a0]">
               Step 2 · Lead + call
             </h2>
 
@@ -254,7 +259,7 @@ export default function Home() {
                 <button
                   key={p.id}
                   onClick={() => loadPersona(p.id)}
-                  className="rounded-full border border-neutral-300 px-3 py-1 text-xs hover:border-blue-500 hover:text-blue-600"
+                  className="rounded-none border border-neutral-300 px-3 py-1 text-xs hover:border-[#004CE5] hover:text-[#004CE5]"
                 >
                   {p.profile.name.split(" ")[0]}
                 </button>
@@ -265,7 +270,7 @@ export default function Home() {
                   setTranscript("");
                   resetOutput();
                 }}
-                className="rounded-full border border-dashed border-neutral-300 px-3 py-1 text-xs text-neutral-500 hover:border-neutral-500"
+                className="rounded-none border border-dashed border-neutral-300 px-3 py-1 text-xs text-neutral-500 hover:border-neutral-500"
               >
                 blank
               </button>
@@ -284,7 +289,7 @@ export default function Home() {
               className="mt-3"
             />
 
-            <div className="mt-5 flex gap-1 rounded-lg bg-neutral-100 p-1 text-sm">
+            <div className="mt-5 flex gap-1 rounded-none bg-neutral-100 p-1 text-sm">
               {(["transcript", "audio"] as const).map((m) => (
                 <button
                   key={m}
@@ -304,10 +309,10 @@ export default function Home() {
                 onChange={(e) => setTranscript(e.target.value)}
                 placeholder={"BDA: ...\nLead: ..."}
                 rows={10}
-                className="mt-3 w-full rounded-lg border border-neutral-300 p-3 font-mono text-xs focus:border-blue-500 focus:outline-none"
+                className="mt-3 w-full rounded-none border border-neutral-300 p-3 font-mono text-xs focus:border-[#004CE5] focus:outline-none"
               />
             ) : (
-              <div className="mt-3 rounded-lg border border-dashed border-neutral-300 p-6 text-center">
+              <div className="mt-3 rounded-none border border-dashed border-neutral-300 p-6 text-center">
                 <input
                   type="file"
                   accept="audio/*"
@@ -323,7 +328,7 @@ export default function Home() {
             <button
               onClick={generate}
               disabled={busy}
-              className="mt-4 w-full rounded-lg bg-blue-600 py-2.5 text-sm font-semibold text-white hover:bg-blue-500 disabled:opacity-50"
+              className="mt-4 w-full rounded-none bg-[#004CE5] py-2.5 text-sm font-semibold text-white hover:bg-[#0038ac] disabled:opacity-50"
             >
               {stage === "transcribing"
                 ? "Transcribing call…"
@@ -332,7 +337,7 @@ export default function Home() {
                 : "Generate nudge + PDF"}
             </button>
             {error && (
-              <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-xs text-red-700">{error}</p>
+              <p className="mt-3 rounded-none bg-red-50 px-3 py-2 text-xs text-red-700">{error}</p>
             )}
           </section>
 
@@ -347,12 +352,12 @@ export default function Home() {
             {result && (
               <>
                 {/* Strategist read */}
-                <div className="rounded-xl border border-neutral-200 bg-white p-5">
+                <div className="border border-[#dfe5f1] bg-white p-5">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-semibold uppercase tracking-wide text-neutral-400">
+                    <h3 className="font-display text-sm font-semibold uppercase tracking-wide text-[#6478a0]">
                       Agent&apos;s read
                     </h3>
-                    <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
+                    <span className="rounded-none bg-[#eef3ff] px-3 py-1 text-xs font-medium text-[#004CE5]">
                       {ARCHETYPE_LABEL[result.brief.archetype] ?? result.brief.archetype}
                     </span>
                   </div>
@@ -368,22 +373,22 @@ export default function Home() {
                 </div>
 
                 {/* Nudge - internal, no gate */}
-                <div className="rounded-xl border border-neutral-200 bg-white p-5">
+                <div className="border border-[#dfe5f1] bg-white p-5">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-semibold uppercase tracking-wide text-neutral-400">
+                    <h3 className="font-display text-sm font-semibold uppercase tracking-wide text-[#6478a0]">
                       Pre-call nudge → BDA&apos;s WhatsApp
                     </h3>
                     <span className="text-[10px] uppercase tracking-wide text-neutral-400">
                       internal · no approval gate
                     </span>
                   </div>
-                  <pre className="mt-3 whitespace-pre-wrap rounded-lg bg-[#e7ffdb] p-4 font-sans text-sm leading-relaxed">
+                  <pre className="mt-3 whitespace-pre-wrap rounded-none bg-[#e7ffdb] p-4 font-sans text-sm leading-relaxed">
                     {result.nudge}
                   </pre>
                   <button
                     onClick={sendNudge}
                     disabled={nudgeSend === "sending" || nudgeSend === "sent" || !phoneSaved}
-                    className="mt-3 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-500 disabled:opacity-50"
+                    className="mt-3 rounded-none bg-[#011845] px-4 py-2 text-sm font-medium text-white hover:bg-[#0a2a6b] disabled:opacity-50"
                   >
                     {nudgeSend === "sent"
                       ? "Sent to BDA ✓"
@@ -396,12 +401,12 @@ export default function Home() {
                 </div>
 
                 {/* PDF - lead-facing, gated */}
-                <div className={`rounded-xl border border-neutral-200 bg-white p-5 ${skipped ? "opacity-50" : ""}`}>
+                <div className={`border border-[#dfe5f1] bg-white p-5 ${skipped ? "opacity-50" : ""}`}>
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-semibold uppercase tracking-wide text-neutral-400">
+                    <h3 className="font-display text-sm font-semibold uppercase tracking-wide text-[#6478a0]">
                       Post-call PDF → lead&apos;s WhatsApp
                     </h3>
-                    <span className="rounded-full bg-red-50 px-3 py-1 text-[10px] font-medium uppercase tracking-wide text-red-600">
+                    <span className="rounded-none bg-red-50 px-3 py-1 text-[10px] font-medium uppercase tracking-wide text-red-600">
                       requires BDA approval
                     </span>
                   </div>
@@ -409,7 +414,7 @@ export default function Home() {
                   {result.pdfUrl && (
                     <iframe
                       src={result.pdfUrl}
-                      className="mt-3 h-96 w-full rounded-lg border border-neutral-200"
+                      className="mt-3 h-96 w-full rounded-none border border-neutral-200"
                       title="PDF preview"
                     />
                   )}
@@ -421,7 +426,7 @@ export default function Home() {
                       onChange={(e) => setCoverDraft(e.target.value)}
                       rows={3}
                       disabled={skipped || pdfSend === "sent"}
-                      className="mt-1 w-full rounded-lg border border-neutral-300 p-3 text-sm focus:border-blue-500 focus:outline-none"
+                      className="mt-1 w-full rounded-none border border-neutral-300 p-3 text-sm focus:border-[#004CE5] focus:outline-none"
                     />
                   </div>
 
@@ -430,7 +435,7 @@ export default function Home() {
                       <button
                         onClick={approvePdf}
                         disabled={pdfSend === "sending" || !result.pdfUrl || !phoneSaved}
-                        className="flex-1 rounded-lg bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-500 disabled:opacity-50"
+                        className="flex-1 rounded-none bg-[#004CE5] py-2 text-sm font-semibold text-white hover:bg-[#0038ac] disabled:opacity-50"
                       >
                         {pdfSend === "sending"
                           ? "Sending…"
@@ -441,13 +446,13 @@ export default function Home() {
                       <button
                         onClick={() => (editing ? saveEdits() : setEditing(true))}
                         disabled={rerendering}
-                        className="rounded-lg border border-neutral-300 px-4 py-2 text-sm hover:border-blue-500"
+                        className="rounded-none border border-neutral-300 px-4 py-2 text-sm hover:border-[#004CE5]"
                       >
                         {rerendering ? "Re-rendering…" : editing ? "Save edits" : "Edit"}
                       </button>
                       <button
                         onClick={() => setSkipped(true)}
-                        className="rounded-lg border border-neutral-300 px-4 py-2 text-sm text-neutral-500 hover:border-red-400 hover:text-red-500"
+                        className="rounded-none border border-neutral-300 px-4 py-2 text-sm text-neutral-500 hover:border-red-400 hover:text-red-500"
                       >
                         Skip
                       </button>
@@ -476,7 +481,7 @@ export default function Home() {
                     </p>
                   )}
                   {pdfSend === "sent" && (
-                    <p className="mt-3 rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+                    <p className="mt-3 rounded-none bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
                       PDF delivered to the lead&apos;s WhatsApp ✓
                     </p>
                   )}
@@ -494,7 +499,7 @@ export default function Home() {
         {/* Side-by-side gallery: how differently the agent writes per lead */}
         {history.length > 1 && (
           <section className="mt-8">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-400">
+            <h2 className="mb-3 font-display text-sm font-semibold uppercase tracking-wide text-[#6478a0]">
               Generated documents · side by side
             </h2>
             <div className="grid gap-4 md:grid-cols-3">
@@ -504,16 +509,16 @@ export default function Home() {
                   href={h.pdfUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="group rounded-xl border border-neutral-200 bg-white p-3 hover:border-blue-500"
+                  className="group border border-[#dfe5f1] bg-white p-3 hover:border-[#004CE5]"
                 >
                   <iframe
                     src={`${h.pdfUrl}#toolbar=0`}
-                    className="pointer-events-none h-72 w-full rounded-lg border border-neutral-100"
+                    className="pointer-events-none h-72 w-full rounded-none border border-neutral-100"
                     title={h.name}
                   />
                   <div className="mt-2 flex items-center justify-between">
                     <span className="text-sm font-medium">{h.name}</span>
-                    <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] uppercase tracking-wide text-neutral-500">
+                    <span className="rounded-none bg-neutral-100 px-2 py-0.5 text-[10px] uppercase tracking-wide text-neutral-500">
                       {ARCHETYPE_LABEL[h.archetype] ?? h.archetype}
                     </span>
                   </div>
@@ -544,7 +549,7 @@ function Field({
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+        className="mt-1 w-full rounded-none border border-neutral-300 px-3 py-2 text-sm focus:border-[#004CE5] focus:outline-none"
       />
     </label>
   );

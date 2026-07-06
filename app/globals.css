@@ -1,26 +1,28 @@
+@import url("https://api.fontshare.com/v2/css?f[]=clash-grotesk@500,600&display=swap");
 @import "tailwindcss";
 
+/* Scaler brand tokens, lifted from scaler.com computed styles:
+   primary #004CE5, navy ink #011845, white surfaces, square corners */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #011845;
+  --scaler-blue: #004ce5;
+  --scaler-navy: #011845;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-scaler: #004ce5;
+  --color-navy: #011845;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: "Clash Grotesk", ui-sans-serif, system-ui, sans-serif;
 }
