@@ -211,7 +211,8 @@ export async function runNudge(
   profile: LeadProfile,
   brief: StrategistBrief
 ): Promise<string> {
-  const prompt = nudgePrompt(profile, brief);
+  const { factsDigest } = await import("./facts");
+  const prompt = nudgePrompt(profile, brief, factsDigest());
   if (!geminiAvailable()) {
     try {
       return await groqChat(prompt, false, GROQ_NUDGE_MODEL, 2400);
