@@ -196,24 +196,35 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white text-[#011845]">
-      <div className="mx-auto max-w-6xl px-6 py-10">
-        <header className="mb-8">
-          <h1 className="font-display flex items-baseline gap-2 text-2xl font-semibold tracking-tight">
-            <span className="flex items-center">
-              scaler<span className="ml-0.5 inline-block h-5 w-2.5 bg-[#004CE5]" />
+      <nav className="sticky top-0 z-10 border-b border-[#e4e4e4] bg-white">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+          <div className="flex items-center gap-4">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/scaler-logo.svg" alt="Scaler" className="h-7 w-auto" />
+            <span className="h-6 w-px bg-[#e4e4e4]" />
+            <span className="font-display text-[15px] font-semibold tracking-tight">
+              Build &amp; Prep
             </span>
-            <span className="font-normal text-neutral-300">/</span>
-            Build &amp; Prep
-            <span className="text-sm font-medium text-[#6478a0]">BDA copilot</span>
+          </div>
+          <span className="text-xs font-medium uppercase tracking-wider text-[#6478a0]">
+            BDA Copilot · Internal
+          </span>
+        </div>
+      </nav>
+      <div className="mx-auto max-w-6xl px-6 py-9">
+        <header className="mb-7">
+          <h1 className="font-display text-[27px] font-semibold leading-tight tracking-tight">
+            Prep the call. Win the follow-up.
           </h1>
-          <p className="mt-1 text-sm text-[#4a5b7d]">
-            Pre-call WhatsApp nudge for the BDA + post-call personalised PDF for the
-            lead. Lead-facing sends always pass through Approve / Edit / Skip.
+          <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-[#4a5b7d]">
+            A pre-call WhatsApp nudge that arms the BDA, and a post-call personalised
+            PDF that earns the lead&apos;s trust. Every lead-facing send passes through
+            Approve / Edit / Skip.
           </p>
         </header>
 
         {/* Onboarding */}
-        <section className="mb-8 border border-[#dfe5f1] bg-white p-5">
+        <section className="mb-8 border border-[#e4e4e4] bg-white p-5">
           <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-[#6478a0]">
             Step 1 · WhatsApp setup
           </h2>
@@ -239,7 +250,7 @@ export default function Home() {
               {phoneSaved ? "Saved ✓" : "Save"}
             </button>
           </div>
-          <p className="mt-3 rounded-none bg-amber-50 px-3 py-2 text-xs text-amber-800">
+          <p className="mt-3 border-l-4 border-[#004CE5] bg-[#eef3ff] px-4 py-2.5 text-xs leading-relaxed text-[#011845]">
             One-time: send{" "}
             <b>join {process.env.NEXT_PUBLIC_TWILIO_SANDBOX_CODE || "<sandbox-code>"}</b>{" "}
             on WhatsApp to <b>+1 415 523 8886</b> (Twilio sandbox) so messages can reach
@@ -249,7 +260,7 @@ export default function Home() {
 
         <div className="grid gap-6 lg:grid-cols-2">
           {/* Input column */}
-          <section className="self-start border border-[#dfe5f1] bg-white p-5">
+          <section className="self-start border border-[#e4e4e4] bg-white p-5">
             <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-[#6478a0]">
               Step 2 · Lead + call
             </h2>
@@ -352,7 +363,7 @@ export default function Home() {
             {result && (
               <>
                 {/* Strategist read */}
-                <div className="border border-[#dfe5f1] bg-white p-5">
+                <div className="border border-[#e4e4e4] bg-white p-5">
                   <div className="flex items-center justify-between">
                     <h3 className="font-display text-sm font-semibold uppercase tracking-wide text-[#6478a0]">
                       Agent&apos;s read
@@ -373,7 +384,7 @@ export default function Home() {
                 </div>
 
                 {/* Nudge - internal, no gate */}
-                <div className="border border-[#dfe5f1] bg-white p-5">
+                <div className="border border-[#e4e4e4] bg-white p-5">
                   <div className="flex items-center justify-between">
                     <h3 className="font-display text-sm font-semibold uppercase tracking-wide text-[#6478a0]">
                       Pre-call nudge → BDA&apos;s WhatsApp
@@ -401,7 +412,7 @@ export default function Home() {
                 </div>
 
                 {/* PDF - lead-facing, gated */}
-                <div className={`border border-[#dfe5f1] bg-white p-5 ${skipped ? "opacity-50" : ""}`}>
+                <div className={`border border-[#e4e4e4] bg-white p-5 ${skipped ? "opacity-50" : ""}`}>
                   <div className="flex items-center justify-between">
                     <h3 className="font-display text-sm font-semibold uppercase tracking-wide text-[#6478a0]">
                       Post-call PDF → lead&apos;s WhatsApp
@@ -509,7 +520,7 @@ export default function Home() {
                   href={h.pdfUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="group border border-[#dfe5f1] bg-white p-3 hover:border-[#004CE5]"
+                  className="group border border-[#e4e4e4] bg-white p-3 hover:border-[#004CE5]"
                 >
                   <iframe
                     src={`${h.pdfUrl}#toolbar=0`}
@@ -527,6 +538,11 @@ export default function Home() {
             </div>
           </section>
         )}
+
+        <footer className="mt-12 border-t border-[#e4e4e4] pt-4 text-[11px] leading-relaxed text-[#8a97b3]">
+          Built for the Scaler AI Builder take-home. Uses Scaler&apos;s public brand
+          assets for demo fidelity; not an official Scaler product.
+        </footer>
       </div>
     </main>
   );
