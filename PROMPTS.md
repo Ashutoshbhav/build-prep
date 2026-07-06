@@ -44,20 +44,33 @@ Output is constrained by a JSON schema (`STRATEGIST_SCHEMA` in `lib/prompts.ts`)
 
 ## 2. BDA nudge (Qwen 3.6-27B, reasoning off)
 
-Job: the pre-call WhatsApp message. Internal, so no approval gate.
+Job: the pre-call WhatsApp message. Internal, so no approval gate. Receives the strategy brief plus a compact facts digest (fee, EMI, refund window, attributed outcome stats, test format, curriculum blocks) so objection handles carry real numbers.
 
 ```
-Write a WhatsApp message to a Scaler BDA who is calling ${name} in a few minutes. They will read it on their phone while walking to their desk.
+Write a WhatsApp message to a Scaler BDA who is calling ${name} in a few minutes. They will read it on their phone walking to their desk. It must make the first 30 seconds of the call non-generic AND arm them for the pushback that's coming.
 
 STRATEGY BRIEF (from the call/lead analysis):
 ${brief JSON}
 
+FACTS THE BDA CAN SAY OUT LOUD (use these to make handles concrete):
+${facts digest}
+
+STRUCTURE (labeled blocks, in this order)
+*Who*: one line - name, role, the thing that defines this lead. Mark ✓/~ status.
+*Open with*: the brief's opening_hook, QUOTED VERBATIM. Do not write your own opener - the strategist already wrote it.
+*What's driving him/her*: 1-2 lines on the real motivation, marked ✓/~/?. Only what they said or the brief inferred - NEVER invent target numbers or goals they didn't state.
+*They'll push back*: 2-3 expected objections, each with a comeback the BDA can actually SAY, using real numbers from the facts above (e.g. the EMI figure for cost pushback, the 14-day refund for risk pushback). An instruction like "address cost vs ROI" is useless - write the actual sentence.
+*Don't say*: the 1-2 things that kill trust with THIS lead.
+? one thing to find out on this call.
+
+THE MESSAGE ENDS AFTER THE ? LINE. No closing advice, no coaching about tone, no summary - anything after the ? line is a defect.
+
 RULES
-- Under 120 words. WhatsApp formatting: *bold* sparingly, line breaks between blocks. ZERO emojis - not one. No "Let's go", no pep talk, no exclamation marks.
-- Structure: who this is (one line) -> the hook to open with (their exact suggested opener, quoted) -> 2-3 angles as short bullets -> expected objections with one-line handles -> a "don't say" line.
-- Mark epistemic status inline and NON-NEGOTIABLY: ✓ before hard facts, ~ before inferences/guesses, ? before unknowns worth asking about. Use each marker at least once.
-- Voice: how a sharp colleague actually texts - dry, specific, fast. Contractions fine. Fragments fine. No corporate tone, no "Dear", no sign-off, no preamble like "Here's your brief", no motivational closers. These phrases (and their cousins) are firing offences: "value proposition", "leverage", "personalized learning", "key points to cover", "great question", "journey".
-- Every line must be about THIS lead. If a line could be sent for any lead, cut it. Use their specific numbers, companies, and words from the call. Write "14 LPA at TCS" not "his current compensation".
+- 140-180 words. WhatsApp bold is SINGLE asterisks (*label*), never **double**. Bold for the block labels only. ZERO emojis. No exclamation marks, no pep talk, no motivational closers.
+- No cute analogies about money ("coffee budget", "less than a pizza") - state the number plainly and let it speak.
+- Every handle must contain a concrete fact or number, attributed casually where stats conflict ("FAQ says 93.5, placement page says 89 - say 'published stats', don't pick one").
+- Voice: how a sharp colleague actually texts - dry, specific, fast. Contractions and fragments fine. Firing offences: "value proposition", "leverage", "personalized learning", "key points to cover", "great question", "journey", "focus on".
+- Every line must be about THIS lead. Use their specific numbers, companies, and words from the call. Write "14 LPA at TCS" not "his current compensation".
 
 Return ONLY the message text.
 ```
