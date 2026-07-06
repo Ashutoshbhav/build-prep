@@ -26,7 +26,8 @@ const GROQ_WRITER_MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
 const GROQ_STRATEGIST_MODEL =
   process.env.GROQ_STRATEGIST_MODEL || "openai/gpt-oss-20b";
 const GROQ_NUDGE_MODEL = process.env.GROQ_NUDGE_MODEL || "qwen/qwen3.6-27b";
-const GROQ_FAST_MODEL = process.env.GROQ_FAST_MODEL || "llama-3.3-70b-versatile";
+const GROQ_FAST_MODEL =
+  process.env.GROQ_FAST_MODEL || "meta-llama/llama-4-scout-17b-16e-instruct";
 
 function gemini() {
   const key = process.env.GEMINI_API_KEY;
@@ -256,7 +257,8 @@ export async function runWriter(
 
   if (!geminiAvailable()) {
     try {
-      return await groqJson<PdfContent>(prompt, WRITER_SCHEMA, GROQ_WRITER_MODEL, 3800);
+      // 2600 keeps prompt + completion inside gpt-oss-120b's 8k TPM window.
+      return await groqJson<PdfContent>(prompt, WRITER_SCHEMA, GROQ_WRITER_MODEL, 2600);
     } catch (err) {
       console.error("writer: groq writer model failed, using fast model:", err);
       return groqJson<PdfContent>(prompt, WRITER_SCHEMA, GROQ_FAST_MODEL, 3800);
@@ -269,7 +271,7 @@ export async function runWriter(
     );
   } catch (err) {
     console.error("writer: gemini failed, falling back to groq:", err);
-    return groqJson<PdfContent>(prompt, WRITER_SCHEMA, GROQ_WRITER_MODEL, 3800);
+    return groqJson<PdfContent>(prompt, WRITER_SCHEMA, GROQ_WRITER_MODEL, 2600);
   }
 }
 
