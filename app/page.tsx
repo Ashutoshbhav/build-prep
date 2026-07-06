@@ -38,6 +38,9 @@ export default function Home() {
   const [editing, setEditing] = useState(false);
   const [coverDraft, setCoverDraft] = useState("");
   const [rerendering, setRerendering] = useState(false);
+  const [history, setHistory] = useState<
+    { name: string; archetype: string; pdfUrl: string }[]
+  >([]);
 
   useEffect(() => {
     const saved = localStorage.getItem("bp_phone");
@@ -45,7 +48,18 @@ export default function Home() {
       setPhone(saved);
       setPhoneSaved(true);
     }
+    try {
+      setHistory(JSON.parse(localStorage.getItem("bp_history") || "[]"));
+    } catch {}
   }, []);
+
+  function pushHistory(entry: { name: string; archetype: string; pdfUrl: string }) {
+    setHistory((prev) => {
+      const next = [entry, ...prev.filter((h) => h.name !== entry.name)].slice(0, 6);
+      localStorage.setItem("bp_history", JSON.stringify(next));
+      return next;
+    });
+  }
 
   function savePhone() {
     if (!phone.trim()) return;
@@ -105,6 +119,13 @@ export default function Home() {
       setResult(json);
       setCoverDraft(json.pdf.cover_message);
       setStage("ready");
+      if (json.pdfUrl) {
+        pushHistory({
+          name: profile.name,
+          archetype: json.brief.archetype,
+          pdfUrl: json.pdfUrl,
+        });
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something failed");
       setStage("idle");
@@ -469,6 +490,38 @@ export default function Home() {
             )}
           </section>
         </div>
+
+        {/* Side-by-side gallery: how differently the agent writes per lead */}
+        {history.length > 1 && (
+          <section className="mt-8">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-400">
+              Generated documents · side by side
+            </h2>
+            <div className="grid gap-4 md:grid-cols-3">
+              {history.slice(0, 3).map((h) => (
+                <a
+                  key={h.pdfUrl}
+                  href={h.pdfUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group rounded-xl border border-neutral-200 bg-white p-3 hover:border-blue-500"
+                >
+                  <iframe
+                    src={`${h.pdfUrl}#toolbar=0`}
+                    className="pointer-events-none h-72 w-full rounded-lg border border-neutral-100"
+                    title={h.name}
+                  />
+                  <div className="mt-2 flex items-center justify-between">
+                    <span className="text-sm font-medium">{h.name}</span>
+                    <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] uppercase tracking-wide text-neutral-500">
+                      {ARCHETYPE_LABEL[h.archetype] ?? h.archetype}
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </main>
   );

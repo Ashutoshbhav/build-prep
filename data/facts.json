@@ -227,6 +227,66 @@
     "Alumni network size quoted variously as 37,000+, 40,000+, 1,00,000+ on different pages",
     "No published list of which companies are formal hiring partners vs where alumni happen to work",
     "Time-to-placement not guaranteed; placement page mentions cases taking up to six months post-graduation",
-    "Named instructors are marketing examples; lineup per cohort is not guaranteed"
+    "Named instructors are marketing examples; lineup per cohort is not guaranteed",
+    "SST/SSB are certificate programs by their own disclaimers - NEVER call them degrees, MBA, or university programs; the parallel IIT Madras/BITS degrees are separate, optional, and separately paid",
+    "SST: no placement guarantee published, only internship stats and individual PPO figures; batch size, audit methodology, loan terms, Year-4 accommodation not published",
+    "SSB: '100% placement rate' is a founding-cohort claim with no methodology or base size; absolute salary figures not published; batch size, hostel costs, tuition refund policy not published",
+    "SSB pages conflict on application fee (Rs 1,500 on admission page vs Rs 2,000-4,000 intake tiers in FAQ) and batch start (August 2026 vs September 18, 2026) - attribute per page, don't pick one"
+  ],
+  "sst": [
+    {
+      "fact": "Scaler School of Technology (SST): 4-year undergraduate residential program in Bengaluru, two tracks: Computer Science & AI, and AI & Business. Includes 50+ projects and a mandatory 1-year industry immersion",
+      "source": "https://www.scaler.com/school-of-technology/"
+    },
+    {
+      "fact": "CRITICAL credential fact, site's own disclaimer: 'Scaler School of Technology offers a certificate-based program. It is not a university/college and does not confer degrees.' Students may separately pursue a parallel UGC-recognised BS from IIT Madras (Rs 3.52 lakh) or BITS Pilani (Rs 4.59 lakh), paid separately to those universities",
+      "source": "https://www.scaler.com/school-of-technology/certification"
+    },
+    {
+      "fact": "SST fees: CS & AI total Rs 22.99 lakh (Rs 50,000 admission + Rs 17 lakh tuition + Rs 5.49 lakh hostel & mess over 3 years); AI & Business total Rs 24.49 lakh; Rs 25,000 refundable security deposit; NSET application fee Rs 1,000",
+      "source": "https://www.scaler.com/school-of-technology/admission/"
+    },
+    {
+      "fact": "NSET admission test: 120-minute online test (Mathematics + Logical Reasoning), up to 3 attempts per year, score determines admission AND scholarship. Eligibility: under 20 years as of July 1 2026, 60%+ in Class XII Maths. Two interview rounds after (Round 1 with an 'AI version of Anshuman Singh'). Fastrack skip-NSET: JEE Mains 92%ile+ overall or 95%ile+ in Maths/Physics, or SAT 1430+",
+      "source": "https://www.scaler.com/school-of-technology/admission/"
+    },
+    {
+      "fact": "SST scholarships up to 100%: Merit-Based and Merit-cum-Need-Based; 100% for IMO/IOI international representatives, 50% for INMO/INOI winners",
+      "source": "https://www.scaler.com/school-of-technology/admission/"
+    },
+    {
+      "fact": "SST Year 1 curriculum (CS & AI): Python, Java, DSA, HTML/CSS/JS, React, Statistics & Probability, AI/ML, Database Design; projects include AI Tic-Tac-Toe, mini Canva-like editor, IPL prediction",
+      "source": "https://www.scaler.com/school-of-technology/cs-ai"
+    },
+    {
+      "fact": "SST published outcomes: '96.3% of eligible students got at least 1 internship offer', 158 first-batch internships, highest internship stipend Rs 2 lakh/month, individual PPOs listed at 46/44/38/30 LPA, 150+ companies. No batch-wide average placement salary published",
+      "source": "https://www.scaler.com/school-of-technology/career-outcomes/"
+    }
+  ],
+  "ssb": [
+    {
+      "fact": "Scaler School of Business (SSB): PGP in Management & Tech (PGP-MT), 18 months full-time in Bengaluru incl. 3-6 month internship. 6 terms of 3 months: Terms 1-3 core, Term 4 core+electives, Term 5 electives, Term 6 industry specialization. 22 core courses, 20 functional electives, 4 industry specializations",
+      "source": "https://www.scaler.com/school-of-business/program/"
+    },
+    {
+      "fact": "CRITICAL credential fact, site's own disclaimer: 'Scaler School of Business offers a certificate-based program. It is not a university/college and does not confer degrees.' The credential is a certificate for PGP in Management and Technology - not an MBA, no UGC/AICTE recognition claimed",
+      "source": "https://www.scaler.com/school-of-business/faq/"
+    },
+    {
+      "fact": "SSB fee: Rs 23,00,000. Financing via bank/NBFC partners; NO zero-cost EMI offered. Scholarships (tuition only): Future Business Innovators, Extraordinary Achievements, Industry Leaders, Women in Leadership categories",
+      "source": "https://www.scaler.com/school-of-business/admission/"
+    },
+    {
+      "fact": "SSB admission: profile-based (bachelor's degree, graduation 2016-2026), video essay, interview with case study discussion. No GMAT/GRE/CAT required, no age limit. Freshers with strong projects/internships welcome, 1+ year experience described as ideal",
+      "source": "https://www.scaler.com/school-of-business/admission/"
+    },
+    {
+      "fact": "SSB program components: launch 3 AI products, build 2 real businesses, 10+ company-sourced projects, 150+ hours of AI learning with 25+ tools, D2C Startup Challenge with Rs 25,000 funding, Hustle Program with Rs 50,000 funding",
+      "source": "https://www.scaler.com/school-of-business/"
+    },
+    {
+      "fact": "SSB founding-cohort claims: '40 placements and 5 entrepreneurs', '3.2x average salary hike', '100% placement rate', internships at Razorpay, MPL, BharatPe, Spotdraft etc., Rs 40,000 median internship stipend. No absolute average/median CTC published, no guarantee terms",
+      "source": "https://www.scaler.com/school-of-business/"
+    }
   ]
 }

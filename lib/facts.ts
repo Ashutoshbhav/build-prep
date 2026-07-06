@@ -18,6 +18,8 @@ interface Facts {
   financing: FactEntry[];
   entrance_test: FactEntry[];
   vs_free_content: FactEntry[];
+  sst: FactEntry[]; // School of Technology (4-year UG)
+  ssb: FactEntry[]; // School of Business (PGP-MT)
   gaps: string[];
 }
 
@@ -47,6 +49,11 @@ export function factSheet(archetype?: string, transcript?: string): string {
   const includeVsFree = archetype !== "peer_evaluator" ? mentionsFree || archetype === "roi_skeptic" : mentionsFree;
   const includeCurriculum =
     !archetype || /ai|ml|llm|rag|agent|curriculum|program|course|data|tech/.test(t);
+  // The two campus institutions only load when the call is about them.
+  const includeSst =
+    /school of technology|sst|nset|undergrad|b\.?tech admission|class 12|12th|after school|4.?year|residential/.test(t);
+  const includeSsb =
+    /school of business|ssb|mba|pgp|management|business school|b.?school/.test(t);
 
   return [
     `SCALER FACT SHEET (curated from scaler.com on ${facts.scraped_at})`,
@@ -58,6 +65,12 @@ export function factSheet(archetype?: string, transcript?: string): string {
     renderSection("Entrance test", facts.entrance_test),
     includeVsFree
       ? renderSection("Structured program vs free content (site's own arguments)", facts.vs_free_content)
+      : "",
+    includeSst
+      ? renderSection("Scaler School of Technology (4-year UG, residential)", facts.sst)
+      : "",
+    includeSsb
+      ? renderSection("Scaler School of Business (18-month PGP-MT)", facts.ssb)
       : "",
     `## KNOWN GAPS - facts that do NOT exist in this sheet. If a question needs one of these, it goes in "unconfirmed", never invented:\n${facts.gaps
       .map((g) => `- ${g}`)
