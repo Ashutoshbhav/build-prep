@@ -183,6 +183,28 @@ async function groqJson<T>(
 
 const geminiAvailable = () => !!process.env.GEMINI_API_KEY;
 
+// JSON mode on the fallback providers is schema-guided, not schema-guaranteed.
+// Normalize at the source so no consumer (UI, nudge, writer) meets undefined.
+function normalizeBrief(b: Partial<StrategistBrief>): StrategistBrief {
+  const archetypes = ["roi_skeptic", "peer_evaluator", "trust_seeker", "other"];
+  return {
+    lead_summary: b?.lead_summary || "",
+    archetype: archetypes.includes(b?.archetype as string)
+      ? (b.archetype as StrategistBrief["archetype"])
+      : "other",
+    archetype_reason: b?.archetype_reason || "",
+    open_questions: b?.open_questions ?? [],
+    angles: b?.angles ?? [],
+    objections: b?.objections ?? [],
+    opening_hook: b?.opening_hook || "",
+    dont_say: b?.dont_say ?? [],
+    known: b?.known ?? [],
+    inferred: b?.inferred ?? [],
+    missing: b?.missing ?? [],
+    tone_spec: b?.tone_spec || "",
+  };
+}
+
 export async function runStrategist(
   profile: LeadProfile,
   transcript: string
@@ -190,20 +212,28 @@ export async function runStrategist(
   const prompt = strategistPrompt(profile, transcript);
   if (!geminiAvailable()) {
     try {
-      return await groqJson<StrategistBrief>(prompt, STRATEGIST_SCHEMA, GROQ_STRATEGIST_MODEL, 2500);
+      return normalizeBrief(
+        await groqJson<StrategistBrief>(prompt, STRATEGIST_SCHEMA, GROQ_STRATEGIST_MODEL, 2500)
+      );
     } catch (err) {
       console.error("strategist: gpt-oss-20b failed, using fast model:", err);
-      return groqJson<StrategistBrief>(prompt, STRATEGIST_SCHEMA, GROQ_FAST_MODEL, 2500);
+      return normalizeBrief(
+        await groqJson<StrategistBrief>(prompt, STRATEGIST_SCHEMA, GROQ_FAST_MODEL, 2500)
+      );
     }
   }
   try {
-    return await withRetry(
-      () => geminiJson<StrategistBrief>(prompt, STRATEGIST_SCHEMA),
-      "strategist/gemini"
+    return normalizeBrief(
+      await withRetry(
+        () => geminiJson<StrategistBrief>(prompt, STRATEGIST_SCHEMA),
+        "strategist/gemini"
+      )
     );
   } catch (err) {
     console.error("strategist: gemini failed, falling back to groq:", err);
-    return groqJson<StrategistBrief>(prompt, STRATEGIST_SCHEMA, GROQ_FAST_MODEL, 2500);
+    return normalizeBrief(
+      await groqJson<StrategistBrief>(prompt, STRATEGIST_SCHEMA, GROQ_FAST_MODEL, 2500)
+    );
   }
 }
 

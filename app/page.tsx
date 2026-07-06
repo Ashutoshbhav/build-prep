@@ -365,7 +365,7 @@ export default function Home() {
                   <p className="mt-2 text-xs text-neutral-500">
                     <b>Why this read:</b> {result.brief.archetype_reason}
                   </p>
-                  {result.brief.dont_say.length > 0 && (
+                  {(result.brief.dont_say?.length ?? 0) > 0 && (
                     <p className="mt-2 text-xs text-red-600">
                       <b>Don&apos;t say:</b> {result.brief.dont_say.join(" · ")}
                     </p>
