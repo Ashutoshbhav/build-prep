@@ -128,7 +128,8 @@ STRUCTURE (labeled blocks, in this order)
 THE MESSAGE ENDS AFTER THE ? LINE. No closing advice, no coaching about tone, no summary - anything after the ? line is a defect.
 
 RULES
-- 140-180 words. *bold* for the block labels only. ZERO emojis. No exclamation marks, no pep talk, no motivational closers.
+- 140-180 words. WhatsApp bold is SINGLE asterisks (*label*), never **double**. Bold for the block labels only. ZERO emojis. No exclamation marks, no pep talk, no motivational closers.
+- No cute analogies about money ("coffee budget", "less than a pizza") - state the number plainly and let it speak.
 - Every handle must contain a concrete fact or number, attributed casually where stats conflict ("FAQ says 93.5, placement page says 89 - say 'published stats', don't pick one").
 - Voice: how a sharp colleague actually texts - dry, specific, fast. Contractions and fragments fine. Firing offences: "value proposition", "leverage", "personalized learning", "key points to cover", "great question", "journey", "focus on".
 - Every line must be about THIS lead. Use their specific numbers, companies, and words from the call. Write "14 LPA at TCS" not "his current compensation".
