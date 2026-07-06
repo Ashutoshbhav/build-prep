@@ -85,11 +85,40 @@ export default function Home() {
     setEditing(false);
   }
 
+  // Upload -> transcribe -> auto-fill profile the moment a recording is picked.
+  // The evaluator shouldn't have to type anything the call already contains.
+  async function handleAudio(file: File) {
+    setAudioFile(file);
+    resetOutput();
+    setStage("transcribing");
+    try {
+      const fd = new FormData();
+      fd.append("audio", file);
+      const res = await fetch("/api/transcribe", { method: "POST", body: fd });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "transcription failed");
+      setTranscript(json.transcript);
+      if (json.profile) {
+        setProfile((prev) => ({
+          name: json.profile.name || prev.name,
+          role: json.profile.role || prev.role,
+          yoe: json.profile.yoe || prev.yoe,
+          intent: json.profile.intent || prev.intent,
+          linkedin: prev.linkedin,
+        }));
+      }
+      setStage("idle");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "transcription failed");
+      setStage("idle");
+    }
+  }
+
   async function generate() {
     resetOutput();
     try {
       let text = transcript;
-      if (inputMode === "audio") {
+      if (inputMode === "audio" && !text.trim()) {
         if (!audioFile) {
           setError("Upload a call recording first.");
           return;
@@ -102,6 +131,9 @@ export default function Home() {
         if (!tRes.ok) throw new Error(tJson.error || "transcription failed");
         text = tJson.transcript;
         setTranscript(text); // show what the agent heard
+        if (tJson.profile?.name && !profile.name.trim()) {
+          setProfile((prev) => ({ ...prev, ...tJson.profile, linkedin: prev.linkedin }));
+        }
       }
       if (!text.trim() || !profile.name.trim()) {
         setError("Lead name and a transcript (or audio) are required.");
@@ -327,12 +359,26 @@ export default function Home() {
                 <input
                   type="file"
                   accept="audio/*"
-                  onChange={(e) => setAudioFile(e.target.files?.[0] ?? null)}
+                  onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    if (f) handleAudio(f);
+                  }}
                   className="text-xs"
                 />
                 <p className="mt-2 text-xs text-neutral-400">
                   mp3 / m4a / wav · transcribed with speaker labels via AssemblyAI
                 </p>
+                {stage === "transcribing" && (
+                  <p className="mt-2 text-left text-xs font-medium text-[#004CE5]">
+                    Transcribing the call and reading who the lead is…
+                  </p>
+                )}
+                {transcript.trim() && stage !== "transcribing" && (
+                  <p className="mt-2 bg-emerald-50 px-3 py-2 text-left text-xs text-emerald-700">
+                    Transcript ready, lead profile auto-filled from the call — review the
+                    fields above, then hit Generate.
+                  </p>
+                )}
               </div>
             )}
 

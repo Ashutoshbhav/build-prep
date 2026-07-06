@@ -1,6 +1,41 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AssemblyAI } from "assemblyai";
 
+async function extractProfile(transcript: string): Promise<{
+  name: string;
+  role: string;
+  yoe: string;
+  intent: string;
+} | null> {
+  const key = process.env.GROQ_API_KEY;
+  if (!key) return null;
+  const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: process.env.GROQ_FAST_MODEL || "meta-llama/llama-4-scout-17b-16e-instruct",
+      response_format: { type: "json_object" },
+      max_tokens: 300,
+      temperature: 0.2,
+      messages: [
+        {
+          role: "user",
+          content: `This is a sales call between a Scaler BDA (salesperson) and a lead. Extract the LEAD's details (never the BDA's). Return ONLY JSON: {"name": "lead's name as spoken", "role": "their job/situation incl. company if mentioned", "yoe": "years of experience if stated, else empty string", "intent": "what they want, one line, close to their own words"}. Use "" for anything not said.\n\nTRANSCRIPT:\n${transcript.slice(0, 12000)}`,
+        },
+      ],
+    }),
+  });
+  if (!res.ok) throw new Error(`extract ${res.status}`);
+  const json = await res.json();
+  const parsed = JSON.parse(json.choices?.[0]?.message?.content || "{}");
+  return {
+    name: typeof parsed.name === "string" ? parsed.name : "",
+    role: typeof parsed.role === "string" ? parsed.role : "",
+    yoe: typeof parsed.yoe === "string" ? parsed.yoe : String(parsed.yoe ?? ""),
+    intent: typeof parsed.intent === "string" ? parsed.intent : "",
+  };
+}
+
 async function groqWhisper(file: File): Promise<string> {
   const key = process.env.GROQ_API_KEY;
   if (!key) throw new Error("GROQ_API_KEY not set (no transcription fallback)");
@@ -61,7 +96,16 @@ export async function POST(req: NextRequest) {
 
     if (!text.trim()) throw new Error("empty transcript");
 
-    return NextResponse.json({ transcript: text, engine });
+    // Auto-fill the lead profile from the call so the evaluator doesn't
+    // have to type anything after uploading a recording.
+    let profile = null;
+    try {
+      profile = await extractProfile(text);
+    } catch (e) {
+      console.warn("profile extraction failed (non-fatal):", e);
+    }
+
+    return NextResponse.json({ transcript: text, engine, profile });
   } catch (err) {
     console.error("transcribe failed:", err);
     return NextResponse.json(
