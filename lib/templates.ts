@@ -90,11 +90,42 @@ const LABELS: Record<string, { proofs: string; confirm: string; asked: string }>
   },
 };
 
+// The writer's JSON is schema-guided but not schema-guaranteed (fallback
+// models especially). Never let a missing field kill the document.
+function normalize(content: Partial<PdfContent>): PdfContent {
+  return {
+    cover_message: content.cover_message || "Sharing the document we discussed on the call.",
+    headline: content.headline || "Following up on your questions",
+    intro: content.intro || "",
+    answers: (content.answers ?? []).map((a) => ({
+      question: a?.question || "",
+      quote: a?.quote || "",
+      answer: a?.answer || "",
+      proofs: Array.isArray(a?.proofs) ? a.proofs.filter((p) => p?.claim) : [],
+      unconfirmed: a?.unconfirmed || null,
+    })),
+    special: {
+      title: content.special?.title || "",
+      body_paragraphs: content.special?.body_paragraphs ?? [],
+      table:
+        content.special?.table?.headers?.length && content.special?.table?.rows
+          ? content.special.table
+          : null,
+    },
+    next_step: {
+      heading: content.next_step?.heading || "Next step: the free entrance test",
+      body: content.next_step?.body || "",
+      checklist: content.next_step?.checklist ?? [],
+    },
+  };
+}
+
 export function renderPdfHtml(
   profile: LeadProfile,
   archetype: Archetype,
-  content: PdfContent
+  rawContent: PdfContent
 ): string {
+  const content = normalize(rawContent);
   const t = THEMES[archetype] ?? THEMES.roi_skeptic;
   const l = LABELS[archetype] ?? LABELS.roi_skeptic;
 
@@ -206,11 +237,15 @@ export function renderPdfHtml(
   <h1>${esc(content.headline)}</h1>
   <div class="intro">${paras(content.intro)}</div>
   ${answersHtml}
-  <div class="special">
+  ${
+    content.special.title || content.special.body_paragraphs.length
+      ? `<div class="special">
     <h2>${esc(content.special.title)}</h2>
     ${content.special.body_paragraphs.map((p) => `<p>${esc(p)}</p>`).join("")}
     ${tableHtml}
-  </div>
+  </div>`
+      : ""
+  }
   <div class="next">
     <h2>${esc(content.next_step.heading)}</h2>
     ${paras(content.next_step.body)}
